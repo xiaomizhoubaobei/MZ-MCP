@@ -1,0 +1,103 @@
+---
+name: Security Issue
+description: 报告安全漏洞或安全问题
+title: "[Security] "
+labels: ["security", "priority:critical"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > ⚠️ **安全提示**
+        > 如果您发现了严重的安全漏洞，请不要在公开 Issue 中披露详细信息。请通过私有的方式联系我们。
+
+  - type: checkboxes
+    id: security-type
+    attributes:
+      label: 安全类型
+      description: 选择安全问题的类型
+      options:
+        - label: 密钥泄露（Access Key、Secret Key 等）
+        - label: 认证绕过
+        - label: 权限提升
+        - label: SQL 注入
+        - label: XSS
+        - label: CSRF
+        - label: 敏感信息泄露
+        - label: 其他（请在下方说明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 简要描述安全问题
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 影响范围
+      description: 描述该安全问题的影响范围
+      placeholder: |
+        - 受影响的版本：______
+        - 受影响的用户：______
+        - 潜在损失：______
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 复现步骤
+      description: 如果可以安全披露，请提供复现步骤
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: vulnerability-details
+    attributes:
+      label: 漏洞详情
+      description: 详细描述漏洞的技术细节
+      placeholder: |
+        - 漏洞原理：___
+        - 攻击向量：___
+        - 影响程度：___
+    validations:
+      required: false
+
+  - type: textarea
+    id: fix-suggestions
+    attributes:
+      label: 修复建议
+      description: 建议的修复方案
+      placeholder: |
+        1. 修复步骤：___
+        2. 验证方法：___
+    validations:
+      required: false
+
+  - type: textarea
+    id: disclosure-timeline
+    attributes:
+      label: 披露时间表
+      description: 填写披露时间表信息
+      placeholder: |
+        - 发现时间：___
+        - 计划披露时间：___
+        - 已联系：___ [ ] 是 [ ] 否
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他与安全相关的信息
+    validations:
+      required: false

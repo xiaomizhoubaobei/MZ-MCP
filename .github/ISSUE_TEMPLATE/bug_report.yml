@@ -1,0 +1,108 @@
+---
+name: Bug Report
+description: 报告错误或问题
+title: "[Bug] "
+labels:
+  - bug
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 问题描述
+
+        简要描述遇到的问题。
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 复现步骤
+      description: 请提供能够复现问题的详细步骤
+      placeholder: |
+        1. 执行的操作 '...'
+        2. 点击 '....'
+        3. 向下滚动到 '....'
+        4. 看到错误
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 预期行为
+      description: 描述你期望发生的情况
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: 实际行为
+      description: 描述实际发生的情况
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 请提供运行环境信息
+      placeholder: |
+        - 操作系统: 例如 Windows, macOS, Linux
+        - Python 版本: 例如 3.10, 3.11
+        - 部署平台: 例如 阿里云函数计算 FC
+        - 云服务商: 例如 华为云, 阿里云
+        - 服务区域: 例如 cn-east-3, cn-north-1
+    validations:
+      required: true
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: 配置信息
+      description: 请提供相关配置（已脱敏）
+      placeholder: |
+        ```yaml
+        # 环境变量配置
+        HUAWEI_CLOUD_SECRET_ID: xxx
+        HUAWEI_CLOUD_SECRET_KEY: xxx
+        HUAWEI_CLOUD_REGION: cn-east-3
+        ```
+
+        ```json
+        // Claude Desktop 配置
+        {
+          "mcpServers": {
+            "MZ-MCP": {
+              "url": "..."
+            }
+          }
+        }
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志信息
+      description: 如有错误日志，请粘贴在此处
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图
+      description: 如有必要，请添加截图来说明问题
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他有助于解决问题的信息
+    validations:
+      required: false

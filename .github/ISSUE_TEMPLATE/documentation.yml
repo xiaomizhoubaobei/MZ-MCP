@@ -1,0 +1,105 @@
+---
+name: Documentation
+description: 文档改进或问题
+title: "[Docs] "
+labels: ["documentation"]
+assignees: []
+body:
+  - type: checkboxes
+    id: doc-type
+    attributes:
+      label: 文档类型
+      description: 选择文档类型
+      options:
+        - label: README.md
+        - label: 使用指南
+        - label: API 文档
+        - label: 部署文档
+        - label: 配置文档
+        - label: 代码注释
+        - label: 其他（请在下方说明）
+    validations:
+      required: false
+
+  - type: textarea
+    id: doc-location
+    attributes:
+      label: 文档位置
+      description: 请提供文档的文件路径或 URL
+      placeholder: |
+        路径: README.md
+        或
+        URL: https://...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: issue-type
+    attributes:
+      label: 问题类型
+      description: 选择问题类型
+      options:
+        - label: 错误/不准确
+        - label: 缺少内容
+        - label: 过时/过期的内容
+        - label: 不清晰/难以理解
+        - label: 格式问题
+        - label: 拼写/语法错误
+        - label: 其他（请在下方说明）
+    validations:
+      required: false
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: 问题描述
+      description: 详细描述文档问题
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-changes
+    attributes:
+      label: 建议修改
+      description: 提供具体的修改建议
+      placeholder: |
+        ### 原文
+        ```
+        原文内容
+        ```
+
+        ### 建议修改
+        ```
+        修改后的内容
+        ```
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: affected-users
+    attributes:
+      label: 影响用户
+      description: 这个文档问题会影响哪些用户？
+      options:
+        - label: 新用户
+        - label: 现有用户
+        - label: 特定平台用户（Windows/macOS/Linux）
+        - label: 特定云服务商用户
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图（如有）
+      description: 如有必要，请添加截图
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他有助于改进文档的信息
+    validations:
+      required: false

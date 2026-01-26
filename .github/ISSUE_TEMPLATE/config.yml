@@ -1,0 +1,17 @@
+---
+name: config.yml
+about: Issue 模板配置文件
+title: ''
+labels: []
+assignees: ''
+blank_issues_enabled: true
+contact_links:
+  - name: 查看项目文档
+    url: https://github.com/xiaomizhoubaobei/MZ-MCP/blob/main/readme.md
+    about: 请先查阅 README 文档，可能已经有相关说明
+  - name: 查看 MCP 协议文档
+    url: https://modelcontextprotocol.io/
+    about: 了解 MCP 协议的官方文档
+  - name: 讨论区
+    url: https://github.com/xiaomizhoubaobei/MZ-MCP/discussions
+    about: 在讨论区与其他用户交流
