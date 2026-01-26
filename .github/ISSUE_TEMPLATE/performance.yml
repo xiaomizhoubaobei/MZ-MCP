@@ -1,0 +1,158 @@
+---
+name: Performance Issue
+description: 报告性能问题或优化建议
+title: "[Performance] "
+labels: ["performance"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 问题描述
+
+        简要描述性能问题或优化需求。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 简要描述性能问题或优化需求
+    validations:
+      required: true
+
+  - type: textarea
+    id: performance-metrics
+    attributes:
+      label: 性能指标
+      description: |
+        | 指标 | 当前值 | 期望值 | 测量方法 |
+        |------|--------|--------|---------|
+        | 响应时间 | ... ms | ... ms | ... |
+        | 并发数 | ... | ... | ... |
+        | 吞吐量 | ... req/s | ... req/s | ... |
+      placeholder: |
+        | 指标 | 当前值 | 期望值 | 测量方法 |
+        |------|--------|--------|---------|
+        | 响应时间 | ... ms | ... ms | ... |
+        | 并发数 | ... | ... | ... |
+        | 吞吐量 | ... req/s | ... req/s | ... |
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 复现步骤
+      description: 如何复现这个性能问题
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: bottleneck-analysis
+    attributes:
+      label: 性能瓶颈分析
+      options:
+        - label: 冷启动时间过长
+        - label: API 调用慢
+        - label: 网络延迟高
+        - label: 数据处理慢
+    validations:
+      required: false
+
+  - type: textarea
+    id: analysis-output
+    attributes:
+      label: 性能分析工具输出
+      description: 如有性能分析结果，请粘贴
+      render: text
+      placeholder: |
+        粘贴性能分析输出
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 提供环境信息
+      placeholder: |
+        - 部署平台: [例如 阿里云函数计算 FC]
+        - 函数配置:
+          - 内存: [例如 512 MB, 1 GB]
+          - 超时时间: [例如 30s, 60s]
+          - 并发数: [例如 10]
+        - 云服务商: [例如 华为云]
+        - 服务区域: [例如 cn-east-3]
+        - Python 版本: [例如 3.10]
+    validations:
+      required: false
+
+  - type: textarea
+    id: tried-optimizations
+    attributes:
+      label: 已尝试的优化
+      description: 列出已经尝试过的优化方法及其效果
+      placeholder: |
+        1. 优化方法：___，效果：___
+    validations:
+      required: false
+
+  - type: textarea
+    id: optimization-suggestions
+    attributes:
+      label: 建议的优化方案
+      description: 描述你认为有效的优化方案
+      placeholder: |
+        1. **方案 1**
+           - 描述：___
+           - 预期效果：___
+           - 实施难度：___
+
+        2. **方案 2**
+           - 描述：___
+           - 预期效果：___
+           - 实施难度：___
+    validations:
+      required: false
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: 配置信息
+      description: 函数配置和云服务区域
+      placeholder: |
+        ```yaml
+        # 函数配置
+        memorySize: 512
+        timeout: 30
+        concurrency: 10
+        ```
+
+        ```yaml
+        # 云服务区域
+        HUAWEI_CLOUD_REGION: cn-east-3
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志信息
+      description: 粘贴相关日志
+      render: text
+      placeholder: |
+        粘贴相关日志
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他有助于性能优化的信息
+    validations:
+      required: false

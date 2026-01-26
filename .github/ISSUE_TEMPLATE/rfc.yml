@@ -1,0 +1,128 @@
+---
+name: RFC / Discussion
+description: 发起技术讨论或 RFC（Request for Comments）
+title: "[RFC] "
+labels: ["discussion"]
+assignees: []
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景
+      description: 描述这个讨论或 RFC 的背景和动机
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: 问题陈述
+      description: 当前存在什么问题，或者需要解决什么挑战？
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案
+      description: |
+        详细描述你的提案，包括：
+        1. **目标**
+           - 列出具体目标
+
+        2. **方案设计**
+           - 架构设计
+           - 技术选型
+           - 实现思路
+
+        3. **影响范围**
+           - 涉及的模块
+           - 需要修改的文件
+           - 向后兼容性
+
+        4. **替代方案**
+           - 描述其他可能的方案及其优缺点
+      placeholder: |
+        1. **目标**
+           - 列出具体目标
+
+        2. **方案设计**
+           - 架构设计
+           - 技术选型
+           - 实现思路
+
+        3. **影响范围**
+           - 涉及的模块
+           - 需要修改的文件
+           - 向后兼容性
+
+        4. **替代方案**
+           - 描述其他可能的方案及其优缺点
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-plan
+    attributes:
+      label: 实施计划
+      description: 列出实施阶段和任务
+      placeholder: |
+        | 阶段 | 任务 | 预计时间 |
+        |------|------|---------|
+        | 阶段 1 | ... | ... |
+        | 阶段 2 | ... | ... |
+    validations:
+      required: false
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: 风险与挑战
+      description: 列出潜在的风险和挑战，以及应对措施
+    validations:
+      required: false
+
+  - type: textarea
+    id: discussion-points
+    attributes:
+      label: 讨论要点
+      description: 列出需要社区讨论和反馈的关键问题
+      placeholder: |
+        1. 问题 1
+        2. 问题 2
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考资料
+      description: 相关 Issue、文档、参考实现
+      placeholder: |
+        - 相关 Issue
+        - 相关文档
+        - 参考实现
+    validations:
+      required: false
+
+  - type: textarea
+    id: voting
+    attributes:
+      label: 投票（可选）
+      description: 如需投票，请更新以下内容
+      placeholder: |
+        | 选项 | 投票 |
+        |------|------|
+        | 赞成 | 0 |
+        | 反对 | 0 |
+        | 弃权 | 0 |
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他相关信息
+    validations:
+      required: false

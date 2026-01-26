@@ -1,0 +1,102 @@
+---
+name: Question
+description: 询问使用相关问题
+title: "[Question] "
+labels: ["question"]
+assignees: []
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 问题描述
+      description: 请描述你的问题
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 相关场景
+      description: 描述你遇到问题的使用场景
+      placeholder: |
+        例如：
+        - 部署 MCP 服务器到阿里云函数计算
+        - 配置华为云 OCR 服务
+        - 在 Claude Desktop 中连接 MCP 服务器
+    validations:
+      required: false
+
+  - type: textarea
+    id: tried-methods
+    attributes:
+      label: 已尝试的方法
+      description: 描述你已经尝试过的解决方法
+      placeholder: |
+        1. 尝试了方法 A，结果是 ...
+        2. 查阅了文档 X 部分，但仍然 ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 提供环境信息
+      placeholder: |
+        - 操作系统: [例如 Windows, macOS, Linux]
+        - Python 版本: [例如 3.10]
+        - 部署平台: [例如 阿里云函数计算 FC]
+        - 云服务商: [例如 华为云, 阿里云]
+    validations:
+      required: false
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: 配置信息
+      description: 如有相关配置，请粘贴（已脱敏）
+      placeholder: |
+        ```yaml
+        # 环境变量
+        HUAWEI_CLOUD_REGION: cn-east-3
+        ```
+
+        ```json
+        // Claude Desktop 配置
+        {
+          "mcpServers": {
+            "huaweicloud-ocr": {
+              "url": "..."
+            }
+          }
+        }
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: error-info
+    attributes:
+      label: 错误信息（如有）
+      description: 粘贴错误信息
+      render: text
+      placeholder: |
+        粘贴错误信息
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图（如有）
+      description: 如有必要，请添加截图
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 附加信息
+      description: 其他有助于回答问题的信息
+    validations:
+      required: false
