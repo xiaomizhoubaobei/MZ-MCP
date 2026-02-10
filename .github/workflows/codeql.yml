@@ -36,10 +36,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["TypeScript"]
+        language: ["Python"]
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         # CodeQL 支持 [ $supported-codeql-languages ]
-        # 了解更多关于 CodeQL 语言支持的信息，请访问 https://aka.ms/codeql-docs/language-support
+        # 了解更多关于 CodeQL 语言支持的信息，请访问 https://aka.ms/codPythoneql-docs/language-support
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
