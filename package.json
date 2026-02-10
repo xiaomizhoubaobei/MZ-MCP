@@ -1,0 +1,50 @@
+{
+    "name": "mz-mcp",
+    "version": "0.0.1",
+    "description": "一个集成多种工具和服务的综合 MCP 服务器，包括 OCR、云 API 和其他实用工具",
+    "type": "module",
+    "main": "dist/index.js",
+    "bin": {
+        "mz-mcp-beta": "./dist/index.js"
+    },
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md",
+        ".env.example"
+    ],
+    "scripts": {
+        "start": "node dist/index.js",
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "npm run build"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.6.1",
+        "@huaweicloud/huaweicloud-sdk-ocr": "^3.1.186",
+        "zod": "^3.23.8",
+        "uuid": "^11.0.3"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2"
+    },
+    "keywords": [
+        "mcp",
+        "model-context-protocol",
+        "ocr",
+        "huawei-cloud",
+        "optical-character-recognition"
+    ],
+    "author": "",
+    "license": "AGPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xiaomizhoubaobei/MZ-MCP.git"
+    }
+}
