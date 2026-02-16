@@ -27,7 +27,7 @@
         "@modelcontextprotocol/sdk": "^1.6.1",
         "@huaweicloud/huaweicloud-sdk-ocr": "^3.1.186",
         "zod": "^3.23.8",
-        "uuid": "^11.0.3"
+        "uuid": "^13.0.0"
     },
     "devDependencies": {
         "@types/node": "^22.10.0",
