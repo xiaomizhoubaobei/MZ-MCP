@@ -101,7 +101,7 @@ export function registerOcrTools(server: McpServer): void {
         };
 
         let output: string;
-        
+
         if (params.response_format === ResponseFormat.MARKDOWN) {
           output = formatMarkdownOutput(result, metadata);
         } else {

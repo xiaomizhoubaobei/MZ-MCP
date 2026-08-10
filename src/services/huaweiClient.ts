@@ -121,12 +121,12 @@ async recognizeGeneralText(params: RecognizeGeneralTextInput): Promise<OcrResult
 private handleHuaweiError(error: unknown): Error {
     if (error instanceof Error) {
       const err = error as any;
-      
+
       // 处理华为云 OCR 服务的特定错误码
       if (err.error_code) {
         const errorCode = err.error_code;
         const errorMsg = err.error_msg || '未知错误';
-        
+
         switch (errorCode) {
           // 文字识别错误码
           case 'AIS.0101':
@@ -151,7 +151,7 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`模板未配置识别区 (AIS.0121): ${errorMsg}。请检查模板是否配置了识别区。`);
           case 'AIS.0122':
             return new Error(`存在两张及以上同面身份证 (AIS.0122): ${errorMsg}。请检查输入图片是否存在两张及以上同面身份证。`);
-          
+
           // 平台错误码 - Token 相关
           case 'ModelArts.0203':
             return new Error(`非法 Token (ModelArts.0203): ${errorMsg}。请检查 Token 是否正确。`);
@@ -169,7 +169,7 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`用户账号受限 (ModelArts.4106): ${errorMsg}。请检查用户资源状态。`);
           case 'ModelArts.4107':
             return new Error(`获取用户临时 AK、SK 异常 (ModelArts.4107): ${errorMsg}。请联系华为云支持人员。`);
-          
+
           // 平台错误码 - 权限和服务相关
           case 'ModelArts.4201':
             return new Error(`请求 url 中需要包含服务 ID (ModelArts.4201): ${errorMsg}。请检查请求 url 中的服务 ID。`);
@@ -179,7 +179,7 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`没有权限访问 (ModelArts.4203): ${errorMsg}。请检查访问权限。`);
           case 'ModelArts.4204':
             return new Error(`服务未开通 (ModelArts.4204): ${errorMsg}。请前往文字识别控制台开通需要调用的 API。`);
-          
+
           // 平台错误码 - 服务异常
           case 'ModelArts.4301':
           case 'ModelArts.4302':
@@ -193,13 +193,13 @@ private handleHuaweiError(error: unknown): Error {
           case 'ModelArts.4506':
           case 'ModelArts.4508':
             return new Error(`服务异常 (${errorCode}): ${errorMsg}。请联系华为云支持人员。`);
-          
+
           // 平台错误码 - 文件下载相关
           case 'ModelArts.4601':
             return new Error(`外网下载地址不合法 (ModelArts.4601): ${errorMsg}。请检查输入的 url 下载地址参数格式。`);
           case 'ModelArts.4603':
             return new Error(`下载外网 URL 文件失败 (ModelArts.4603): ${errorMsg}。请检查网络与 URL。`);
-          
+
           // 平台错误码 - OBS 相关
           case 'ModelArts.4702':
             return new Error(`查询 OBS 委托失败 (ModelArts.4702): ${errorMsg}。请检查是否已开通服务的 OBS 委托。`);
@@ -211,11 +211,11 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`OBS 文件大小超限 (ModelArts.4705): ${errorMsg}。请检查 OBS 文件大小。`);
           case 'ModelArts.4706':
             return new Error(`OBS 文件不存在 (ModelArts.4706): ${errorMsg}。请检查对应的文件是否存在。`);
-          
+
           // 平台错误码 - 账户相关
           case 'ModelArts.6201':
             return new Error(`用户账户被冻结 (ModelArts.6201): ${errorMsg}。请检查账户是否被冻结，并完成充值。`);
-          
+
           // APIG 错误码
           case 'APIG.0101':
             return new Error(`访问的 API 不存在或尚未在环境中发布 (APIG.0101): ${errorMsg}。请检查 API 的 URL 是否拼写正确。`);
@@ -225,12 +225,12 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`IAM 身份验证信息不正确 (APIG.0301): ${errorMsg}。请检查 AK/SK 是否正确，或 token 是否过期。`);
           case 'APIG.0308':
             return new Error(`超出速率限制 (APIG.0308): ${errorMsg}。请参考调用 API 时提示的解决方案。`);
-          
+
           default:
             return new Error(`OCR 服务错误 (${errorCode}): ${errorMsg}`);
         }
       }
-      
+
       // 处理 HTTP 状态码错误
       if (err.httpStatusCode) {
         const status = err.httpStatusCode;
@@ -249,7 +249,7 @@ private handleHuaweiError(error: unknown): Error {
             return new Error(`OCR 请求失败 (${status}): ${err.message}`);
         }
       }
-      
+
       // 处理超时和连接错误
       if (error.message.includes('timeout')) {
         return new Error(`请求超时: ${error.message}. 请尝试使用较小的图像或检查网络连接。`);
