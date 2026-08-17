@@ -21,7 +21,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: jey3dayo/pr-insights-labeler@3934dcb1a60e4d79e4acd7ffa7daf4e2097ad184 # v1.11.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
