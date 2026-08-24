@@ -54,7 +54,7 @@ jobs:
 
       # 初始化 CodeQL 工具进行扫描。
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+        uses: github/codeql-action/init@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28 # v4.37.8
         with:
           languages: ${{ matrix.language }}
           # 如果您希望指定自定义查询，可以在这里或在配置文件中进行。
