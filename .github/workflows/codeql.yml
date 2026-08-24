@@ -52,7 +52,7 @@ jobs:
 
       # 初始化 CodeQL 工具进行扫描。
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@89a39a4e59826350b863aa6b6252a07ad50cf83e # v4.32.4
+        uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
         with:
           languages: ${{ matrix.language }}
           # 如果您希望指定自定义查询，可以在这里或在配置文件中进行。
@@ -71,6 +71,6 @@ jobs:
       #   修改它们（或添加更多）以构建您的代码，请参考下方的示例以获取指导。
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@89a39a4e59826350b863aa6b6252a07ad50cf83e # v4.32.4
+        uses: github/codeql-action/analyze@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
         with:
           category: "/language:${{matrix.language}}"
