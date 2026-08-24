@@ -12,6 +12,13 @@
 name: "CodeQL"
 
 on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
   pull_request:
     branches: ["main"]
     paths:
