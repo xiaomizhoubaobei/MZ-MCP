@@ -15,9 +15,10 @@ on:
   pull_request:
     branches: ["main"]
     paths:
-      - 'mzmcp/**'
-      - 'pyproject.toml'
-      - '.pre-commit-config.yaml'
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
   schedule:
     - cron: "0 0 * * 1"
 
@@ -36,10 +37,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["Python"]
+        # 本仓库为 TypeScript/Node.js MCP 项目，CodeQL 统一使用 javascript 语言分析
+        language: ["javascript"]
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         # CodeQL 支持 [ $supported-codeql-languages ]
-        # 了解更多关于 CodeQL 语言支持的信息，请访问 https://aka.ms/codPythoneql-docs/language-support
+        # 了解更多关于 CodeQL 语言支持的信息，请访问 https://aka.ms/codeql-docs/language-support
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
