@@ -60,3 +60,6 @@ htmlcov/
 
 # 构建产物
 *.tgz
+
+# iflow 工作目录
+.iflow/
