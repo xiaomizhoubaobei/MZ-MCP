@@ -1,6 +1,6 @@
 # Agent Instructions
 
-本项目（AI 提示词专家 / prompt_generator）高度依赖 AI Agent 进行自动化辅助开发。为了确保开发质量、代码安全及稳定性，所有参与本项目的 AI Agent 必须严格遵守以下详尽规范：
+本项目（MZ-MCP / 华为云 OCR MCP 服务器）高度依赖 AI Agent 进行自动化辅助开发。为了确保开发质量、代码安全及稳定性，所有参与本项目的 AI Agent 必须严格遵守以下详尽规范：
 
 ## 1. Git 提交规范 (Git Commits)
 
@@ -18,20 +18,20 @@
   - `perf`: 优化相关，比如提升性能、体验
   - `test`: 增加测试
   - `chore`: 构建过程或辅助工具的变动
-- **scope** (可选): 影响的范围，比如 `config`, `cnb`, `prompt` 等。
+- **scope** (可选): 影响的范围，比如 `config`, `cnb`, `ocr`, `tools` 等。
 - **subject**: 简短描述，不超过 50 个字符。
 
 ### 1.3 提交示例
-- ✅ 正确：`feat(prompt): 新增 CO-STAR 结构优化模板`
-- ✅ 正确：`fix: 修复 CRISPE 模板在长文本下的渲染问题`
-- ❌ 错误：`fix: update prompt template` (使用了英文)
-- ❌ 错误：`update App.tsx` (格式错误且无意义)
+- ✅ 正确：`feat(ocr): 新增通用文本识别工具`
+- ✅ 正确：`fix: 修复 OCR 服务超时处理`
+- ❌ 错误：`fix: update ocr client` (使用了英文)
+- ❌ 错误：`update index.ts` (格式错误且无意义)
 
 ### 1.4 提交前检查 (Pre-commit Checks)
 - 项目中有 `.pre-commit-config.yaml` 文件，必须在执行 `git commit` 前按以下步骤执行：
   1. 安装 pre-commit：`pip install pre-commit`
   2. 手动对所有文件运行检查：`pre-commit run --all-files`
-- 当前钩子包含 `gitleaks`（密钥扫描）与通用 hooks（`trailing-whitespace`、`end-of-file-fixer`、`check-yaml`、`check-added-large-files`、`check-toml`）。**提交前必须确保 gitleaks 扫描通过，严禁提交任何疑似密钥/凭据。**
+- 当前钩子包含通用 hooks（`trailing-whitespace`、`end-of-file-fixer`、`check-yaml`、`check-added-large-files`、`check-toml`）。**提交前必须确保所有检查通过，严禁提交任何疑似密钥/凭据。**
 
 ### 1.5 GPG 签名
 项目开启了 commit 签名，系统已配置好 GPG。Agent 在进行 `git commit` 后必须确认 commit 是否成功，如遇 GPG 签名报错需检查配置。
@@ -101,20 +101,47 @@ bash install_gpg_keys.sh
 ## 2. 编码与代码规范 (Coding Standards)
 
 ### 2.1 语言与类型
-- 核心代码库使用 **TypeScript** 编写。
-- 必须遵守严格的类型检查（`strict: true`）。禁止滥用 `any` 类型，能推导或定义接口的地方必须明确类型。
+- 核心代码库使用 **TypeScript** 编写（`strict: true`，见 `tsconfig.json`）。
+- 必须遵守严格的类型检查。禁止滥用 `any` 类型，能推导或定义接口的地方必须明确类型。
+- 项目使用 **ESM 模块**（`"type": "module"`），导入时需带 `.js` 扩展名。
 
-### 2.2 框架与命名
-- 项目使用 **React 19 + Redux Toolkit + react-router-dom + Tailwind CSS + Radix UI**。组件按既有目录组织（`src/` 下），遵循项目现有的命名习惯。
+### 2.2 技术栈与架构
+- **MCP (Model Context Protocol) 服务器**，基于 `@modelcontextprotocol/sdk` 实现。
+- 使用 **STDIO 传输**通信方式。
+- 依赖 **华为云 OCR SDK**（`@huaweicloud/huaweicloud-sdk-ocr`）提供光学字符识别能力。
+- 使用 **Zod**（`zod` v4）进行运行时参数验证。
+- 构建工具：**tsc**（`npm run build`），开发工具：**tsx watch**（`npm run dev`）。
+- 运行环境：Node.js >= 18。
+
+### 2.3 源码目录结构
+```
+src/
+├── index.ts              # MCP 服务器入口，初始化并启动服务器
+├── constants.ts          # 常量配置（API 端点、超时、字符限制等）
+├── types.ts              # TypeScript 类型接口定义
+├── schemas/
+│   ├── index.ts          # Schema 导出模块
+│   └── ocr.ts            # OCR 输入参数 Zod schema 定义
+├── services/
+│   ├── index.ts          # 服务导出模块
+│   └── huaweiClient.ts   # 华为云 OCR 客户端实现与错误处理
+└── tools/
+    ├── index.ts          # 工具导出模块
+    └── ocr.ts            # OCR 工具注册与格式化输出
+```
+
+### 2.4 命名与注释
 - 变量和函数命名必须具备明确语义（驼峰命名法）。
 - **必须提供中文注释**。特别是在以下场景：
-  - 核心逻辑（如提示词优化框架的分流、API 调用）。
-  - 提示词模板处理的黑科技或特殊补丁逻辑。
+  - 核心逻辑（如 OCR 调用、错误处理）。
+  - 华为云 SDK 的特定用法或特殊补丁逻辑。
   - 正则表达式和复杂的 API 请求。
+- 所有文件头部需包含 `@fileoverview`、`@author`、`@date`、`@since`、`@contact`、`@LICENSE`、`@remark` 等 JSDoc 注释。
 
-### 2.3 错误处理与日志
+### 2.5 错误处理与日志
 - 所有的异步调用必须有妥善的 `try/catch` 或者 `.catch()` 处理。
 - 对于异常，必须在日志中保留完整的堆栈和上下文信息，便于后续诊断。
+- 华为云 OCR 错误需通过 `handleHuaweiError` 方法进行格式化和分类处理。
 
 ## 3. 工作流与文件操作行为准则 (Workflow Guidelines)
 
@@ -137,35 +164,59 @@ bash install_gpg_keys.sh
 
 ### 3.5 Github 镜像仓库同步 PR（强制性提示词）
 - **判定标准：只要 `.cnb.yml` 中存在将代码同步到 Github 的配置，即属于"同步到 Github 镜像仓库"的情况**（常见形式为在 `main: push` 事件下使用 `git-sync` 镜像同步 stage，目标指向 `github.com/...`）。**只要 `.cnb.yml` 里有这类配置，就必须在对应的 Github 镜像仓库创建一模一样的 PR**（同名、同分支、同变更内容）。
-- 本仓库 `.cnb.yml` 在 `main: push` 事件下配置了 `git-sync` stage，目标为 `https://github.com/xiaomizhoubaobei/prompt_generator.git`，**属于"同步到 Github 镜像仓库"的情形**，因此必须在 Github 镜像仓库同步创建完全一致的 PR。
+- 本仓库 `.cnb.yml` 在 `main: push` 事件下配置了 `git-sync` stage，目标为 `https://github.com/xiaomizhoubaobei/MZ-MCP.git`，**属于"同步到 Github 镜像仓库"的情形**，因此必须在 Github 镜像仓库同步创建完全一致的 PR。
 - 这是**强制性要求**，不得遗漏，确保 CNB 与 Github 镜像仓库的代码变更保持同步、可追踪。
 
 ### 3.6 GH_TOKEN 环境变量（Github Token）
 - 在执行与 **Github 镜像仓库**相关的同步/推送/创建 PR 等操作时，需要用到 Github 的访问令牌，其对应的环境变量名为 **`GH_TOKEN`**（即 Github Personal Access Token）。
-- **用途**：用于对 `github.com/xiaomizhoubaobei/prompt_generator` 镜像仓库的鉴权，支持向该镜像仓库同步代码、推送分支以及通过 Github API 创建一模一样的 PR。
+- **用途**：用于对 `github.com/xiaomizhoubaobei/MZ-MCP` 镜像仓库的鉴权，支持向该镜像仓库同步代码、推送分支以及通过 Github API 创建一模一样的 PR。
 - **安全要求**：
   - `GH_TOKEN` 属于敏感凭据，**严禁**将其硬编码写入源码、AGENTS.md 或其他任何被提交到仓库的文件中。
   - 必须通过 CI/CD 流水线的密钥/环境注入机制（如 CNB 的密钥管理或 `.cnb.yml` 中声明）安全注入到运行环境，供 Agent 在运行时读取。
-  - 提交前 gitleaks 密钥扫描会拦截疑似泄漏的令牌，若扫描未通过需检查是否误将 `GH_TOKEN` 值写入文件。
+  - 提交前 pre-commit 检查会拦截疑似泄漏的令牌，若扫描未通过需检查是否误将 `GH_TOKEN` 值写入文件。
 
 ## 4. 持续集成与部署规范 (CI/CD - .cnb.yml)
 
 ### 4.1 配置文件规范
 - 本项目使用 CNB (Cloud Native Build) 构建流水线（基于 `.cnb.yml`）。
 - 在修改 `.cnb.yml` 时，必须严格遵守 YAML 的缩进规范（通常为 2 个空格）。
+- `.cnb.yml` 中 `$` 段配置了 VSCode 开发环境，包含 node 镜像、iflow、claude、qwen、CodeBuddy、Qoder 等 CLI 工具的安装，以及 iflow 智能体的部署。
+- `main: push` 事件下配置了同步到 Github 镜像仓库（`git-sync`）的 stage。
 
 ### 4.2 环境依赖
 - 如果在流水线的某一个 stage 中引入了需要构建或运行容器镜像的操作（如 `docker build`、`docker run`、基于其他镜像执行脚本等），**必须在该事件或作业级别明确声明 `services: - docker`**，否则会导致流水线无法正常挂载 Docker 守护进程。
 
 ## 5. 特定业务逻辑指导 (Domain Specifics)
 
-### 5.1 提示词优化框架 (Prompt Optimization)
-- 本项目提供多种提示词优化方案：**CO-STAR、CRISPE、QStar(Q*)、变分法、Meta Prompting、CoT 思维链、微软优化法、RISE、DRAW（AI 绘画）** 等。
-- 修改提示词模板或优化逻辑时，必须保持各框架的**独立性**，避免框架间耦合导致输出串扰。
-- 支持多语言（中文/English/日本語），改动 UI 文案时需同步维护 `README.md`、`README_en.md`、`README_ja.md` 的一致性。
+### 5.1 华为云 OCR 服务 (Huawei Cloud OCR)
+本项目是一个基于 Model Context Protocol (MCP) 的服务器，通过华为云 OCR 服务提供光学字符识别功能。核心工具为 `huawei_ocr_recognize_general_text`（通用文本识别）。
 
-### 5.2 AI 模型调用
+#### 5.1.1 环境变量
+配置以下必需的环境变量（见 `.env.example`）：
+| 环境变量 | 必需 | 说明 |
+|---------|------|------|
+| `CLOUD_SDK_AK` | 是 | 华为云访问密钥 ID |
+| `CLOUD_SDK_SK` | 是 | 华为云秘密访问密钥 |
+| `HUAWEI_OCR_PROJECT_ID` | 是 | 华为云项目 ID |
+| `HUAWEI_OCR_REGION` | 否 | 服务地域，默认为 `cn-east-3`（华东-上海） |
+
+#### 5.1.2 功能特性
+- **通用文本识别**：从图像中提取文本，支持 JPG、PNG、BMP、GIF、TIFF、WEBP、PCX、ICO、PSD、PDF 等格式。
+- **倾斜校正**：自动检测并校正图片的倾斜角度。
+- **多语言支持**：支持 30 多种语言的文字识别。
+- **快速模式**：针对单行文字图片提供快速识别。
+- **单字符模式**：返回字符级别的详细信息。
+- **PDF 支持**：支持多页 PDF 文件的文字识别。
+- **双输出格式**：Markdown（人类可读）和 JSON（机器可读）。
+- **完善的错误处理**：为各种故障场景提供清晰、可操作的错误消息。
+
+#### 5.1.3 错误处理规范
 - **限流与降级**：必须优雅地处理 `429 Too Many Requests`，触发限流时应有清晰的日志和合理的快速阻断/重试机制。
+- 华为云 OCR 错误码分类处理：
+  - `AIS.01xx` 系列：文字识别服务特定错误。
+  - `ModelArts.xxxx` 系列：平台权限、Token、服务异常等。
+  - `APIG.xxxx` 系列：API 网关错误。
+  - HTTP 状态码错误（400/401/403/429/500 等）。
 - API 请求应遵循 `.env.example` 中的配置约定，严禁将密钥硬编码到源码或提交到仓库。
 
 ## 6. CNB OpenAPI 操作规范 (CNB OpenAPI Operations)
