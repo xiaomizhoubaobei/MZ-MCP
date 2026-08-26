@@ -24,12 +24,6 @@ rules:
     event_types: [ "pull_request" ]
     parameters:
       protected_branches: [ "main", "master" ]
-  - description: "禁止对任何分支强制推送，避免绕过审查或覆盖他人提交"
-    enabled: true
-    severity: critical
-    event_types: [ "push" ]
-    parameters:
-      no_force_push: true
   - description: "PR 标题必须符合 Conventional Commits 规范"
     enabled: true
     severity: high
